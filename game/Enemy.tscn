@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmn6tk5qdnhp4"]
+
+[ext_resource type="Script" uid="uid://owlt5xbhqnne" path="res://Enemy.cs" id="1_s7bn3"]
+[ext_resource type="Texture2D" uid="uid://chluckrxf8hvn" path="res://peaceBra.png" id="1_tt7e2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s7bn3"]
+size = Vector2(96.75, 120)
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_s7bn3")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+position = Vector2(986, 219)
+scale = Vector2(0.438596, 0.438596)
+texture = ExtResource("1_tt7e2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(1004, 276)
+shape = SubResource("RectangleShape2D_s7bn3")

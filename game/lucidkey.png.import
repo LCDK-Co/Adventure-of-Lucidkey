@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://br23psqlh0wru"
-path="res://.godot/imported/코미메롱1.png-0027d950c3ee0a1cdae7d0394046d7b5.ctex"
+uid="uid://dx4n13oekiqgl"
+path="res://.godot/imported/lucidkey.png-92ce7cb260e1703b7e9d83c5f600e033.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://코미메롱1.png"
-dest_files=["res://.godot/imported/코미메롱1.png-0027d950c3ee0a1cdae7d0394046d7b5.ctex"]
+source_file="res://lucidkey.png"
+dest_files=["res://.godot/imported/lucidkey.png-92ce7cb260e1703b7e9d83c5f600e033.ctex"]
 
 [params]
 
