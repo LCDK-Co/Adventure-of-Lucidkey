@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://deyux75tyx8he"]
+
+[ext_resource type="Script" uid="uid://vj31wswujegd" path="res://Player.cs" id="1_kpjcp"]
+[ext_resource type="Texture2D" uid="uid://br23psqlh0wru" path="res://코미메롱1.png" id="2_kne1u"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e80uo"]
+radius = 56.3205
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_kpjcp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(181.5, 182)
+scale = Vector2(1.00278, 1)
+texture = ExtResource("2_kne1u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(179, 185)
+shape = SubResource("CircleShape2D_e80uo")
