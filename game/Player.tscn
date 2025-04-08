@@ -1,19 +1,39 @@
-[gd_scene load_steps=4 format=3 uid="uid://deyux75tyx8he"]
+[gd_scene load_steps=7 format=3 uid="uid://deyux75tyx8he"]
 
 [ext_resource type="Script" uid="uid://vj31wswujegd" path="res://Player.cs" id="1_kpjcp"]
 [ext_resource type="Texture2D" uid="uid://br23psqlh0wru" path="res://코미메롱1.png" id="2_kne1u"]
+[ext_resource type="Script" uid="uid://ovwy6soimkik" path="res://Item.cs" id="3_e80uo"]
+[ext_resource type="Texture2D" uid="uid://cgxhfbdo66u4q" path="res://star.png" id="4_cxr5p"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_e80uo"]
-radius = 56.3205
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tdg3f"]
+size = Vector2(362, 361)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dtqjt"]
+radius = 47.1699
 
 [node name="Node2D" type="Node2D"]
+position = Vector2(4, 2)
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 script = ExtResource("1_kpjcp")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
 position = Vector2(181.5, 182)
 scale = Vector2(1.00278, 1)
 texture = ExtResource("2_kne1u")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(179, 185)
-shape = SubResource("CircleShape2D_e80uo")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(181, 181)
+shape = SubResource("RectangleShape2D_tdg3f")
+
+[node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("3_e80uo")
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+position = Vector2(995, 596)
+scale = Vector2(0.3, 0.297222)
+texture = ExtResource("4_cxr5p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(995, 600)
+shape = SubResource("CircleShape2D_dtqjt")
