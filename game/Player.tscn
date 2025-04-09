@@ -19,15 +19,15 @@ radius = 47.1699
 position = Vector2(4, 2)
 script = ExtResource("1_cxr5p")
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+[node name="PlayerBody" type="CharacterBody2D" parent="."]
 script = ExtResource("1_kpjcp")
 
-[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+[node name="Sprite2D" type="Sprite2D" parent="PlayerBody"]
 position = Vector2(135.273, 251.5)
 scale = Vector2(0.121876, 0.12963)
 texture = ExtResource("2_kne1u")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBody"]
 position = Vector2(135.75, 251.063)
 shape = SubResource("RectangleShape2D_tdg3f")
 
@@ -43,6 +43,6 @@ texture = SubResource("CompressedTexture2D_e80uo")
 position = Vector2(999, 521.5)
 shape = SubResource("CircleShape2D_dtqjt")
 
-[node name="Node2D" parent="." instance=ExtResource("4_e80uo")]
+[node name="EnemyBody" parent="." instance=ExtResource("4_e80uo")]
 
 [node name="EnemyTimer" type="Timer" parent="."]
