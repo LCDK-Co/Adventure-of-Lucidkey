@@ -15,7 +15,7 @@ load_path = "res://.godot/imported/star.png-19e2a8935edef1994254d9cf64a4c2d9.cte
 [sub_resource type="CircleShape2D" id="CircleShape2D_dtqjt"]
 radius = 47.1699
 
-[node name="Node2D" type="Node2D"]
+[node name="Main" type="Node2D"]
 position = Vector2(4, 2)
 script = ExtResource("1_cxr5p")
 
@@ -46,3 +46,20 @@ shape = SubResource("CircleShape2D_dtqjt")
 [node name="EnemyBody" parent="." instance=ExtResource("4_e80uo")]
 
 [node name="EnemyTimer" type="Timer" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HpBar" type="ProgressBar" parent="CanvasLayer"]
+offset_left = 946.0
+offset_top = 13.0
+offset_right = 1139.0
+offset_bottom = 40.0
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -46.0
+offset_bottom = 23.0
+grow_horizontal = 0
+text = "점수:0"

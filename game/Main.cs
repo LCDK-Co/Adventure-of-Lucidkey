@@ -5,10 +5,14 @@ public partial class Main : Node2D
 {
     // 적 프리팹 로드
     PackedScene enemyScene = GD.Load<PackedScene>("res://Enemy.tscn");
+    
+    private int score = 0;
+    private int hp = 100;
 
     public override void _Ready()
     {
-        
+        UpdateUI();
+
         GD.Print("타이머 레디!");
         
         // Timer에 연결
@@ -42,5 +46,26 @@ public partial class Main : Node2D
         {
             GD.PrintErr("enemyScene의 루트가 Node2D가 아닙니다!");
         }
+    }
+
+    public void TakeDamage(int amount)
+    {
+        hp = Math.Max(0, hp - amount);
+        UpdateUI();
+    }
+
+    public void AddScore(int amount)
+    {
+        score += amount;
+        UpdateUI();
+    }
+
+    private void UpdateUI()
+    {
+        var hpBar = GetNode<ProgressBar>("CanvasLayer/HpBar");
+        var scoreLabel = GetNode<Label>("CanvasLayer/ScoreLabel");
+
+        hpBar.Value = hp;
+        scoreLabel.Text = $"점수: {score}";
     }
 }

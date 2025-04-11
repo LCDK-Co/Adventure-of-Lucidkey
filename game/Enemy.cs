@@ -19,6 +19,7 @@ public partial class Enemy : Area2D
         {
             GD.Print("잡혔다!");
             QueueFree(); // 아이템 제거
+            GetNode<Main>("/root/Main").AddScore(100);
         }
     }
 }
