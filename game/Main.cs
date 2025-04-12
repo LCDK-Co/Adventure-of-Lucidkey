@@ -12,13 +12,10 @@ public partial class Main : Node2D
     public override void _Ready()
     {
         UpdateUI();
-
-        GD.Print("타이머 레디!");
         
         // Timer에 연결
         Timer timer = GetNode<Timer>("EnemyTimer");
-        timer.WaitTime = 1.0; // 1초 간격
-        timer.Autostart = true;
+        timer.WaitTime = 1.5; // 1초 간격
         timer.OneShot = false;
         timer.Timeout += OnEnemyTimerTimeout;
 
@@ -31,8 +28,6 @@ public partial class Main : Node2D
         
         var instance = enemyScene.Instantiate();
 
-        GD.Print("생성된 인스턴스 타입: ", instance.GetType());
-
         if (instance is Node2D enemy)
         {
             float randomX = GD.RandRange(50, 1100);  // 해상도 가로 1200 기준
@@ -40,7 +35,6 @@ public partial class Main : Node2D
 
             enemy.Position = new Vector2(randomX, randomY);
             AddChild(enemy);
-            GD.Print("적 생성 완료!");
         }
         else
         {

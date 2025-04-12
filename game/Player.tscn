@@ -19,6 +19,13 @@ radius = 47.1699
 position = Vector2(4, 2)
 script = ExtResource("1_cxr5p")
 
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(572, 321)
+limit_left = 0
+limit_top = 0
+limit_right = 1160
+limit_bottom = 600
+
 [node name="PlayerBody" type="CharacterBody2D" parent="."]
 script = ExtResource("1_kpjcp")
 
