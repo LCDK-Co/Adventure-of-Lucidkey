@@ -53,13 +53,11 @@ limit_bottom = 600
 script = ExtResource("1_kpjcp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PlayerBody"]
-position = Vector2(135.273, 251.5)
 scale = Vector2(0.121876, 0.12963)
 sprite_frames = SubResource("SpriteFrames_dtqjt")
 animation = &"walk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBody"]
-position = Vector2(135.75, 251.063)
 shape = SubResource("RectangleShape2D_tdg3f")
 
 [node name="Area2D" type="Area2D" parent="."]
