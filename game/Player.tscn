@@ -1,10 +1,33 @@
-[gd_scene load_steps=9 format=3 uid="uid://deyux75tyx8he"]
+[gd_scene load_steps=11 format=3 uid="uid://deyux75tyx8he"]
 
 [ext_resource type="Script" uid="uid://binyvjdwk6p5n" path="res://Main.cs" id="1_cxr5p"]
 [ext_resource type="Script" uid="uid://vj31wswujegd" path="res://Player.cs" id="1_kpjcp"]
 [ext_resource type="Texture2D" uid="uid://dx4n13oekiqgl" path="res://lucidkey.png" id="2_kne1u"]
 [ext_resource type="Script" uid="uid://ovwy6soimkik" path="res://Item.cs" id="3_e80uo"]
 [ext_resource type="PackedScene" uid="uid://cmn6tk5qdnhp4" path="res://Enemy.tscn" id="4_e80uo"]
+[ext_resource type="Texture2D" uid="uid://c0b3cbu5vstdg" path="res://lucidkey_move.png" id="4_tdg3f"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dtqjt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_kne1u")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_kne1u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_tdg3f")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tdg3f"]
 size = Vector2(106.5, 103.875)
@@ -29,10 +52,11 @@ limit_bottom = 600
 [node name="PlayerBody" type="CharacterBody2D" parent="."]
 script = ExtResource("1_kpjcp")
 
-[node name="Sprite2D" type="Sprite2D" parent="PlayerBody"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PlayerBody"]
 position = Vector2(135.273, 251.5)
 scale = Vector2(0.121876, 0.12963)
-texture = ExtResource("2_kne1u")
+sprite_frames = SubResource("SpriteFrames_dtqjt")
+animation = &"walk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBody"]
 position = Vector2(135.75, 251.063)

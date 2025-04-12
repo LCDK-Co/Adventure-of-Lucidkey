@@ -4,6 +4,7 @@ using System;
 public partial class Enemy : Area2D
 {
     private Vector2 moveDirection = new Vector2(GD.RandRange(-1, 1), GD.RandRange(-1, 1)).Normalized();
+    private AnimatedSprite2D anim;
 
     public override void _Ready()
     {
@@ -14,15 +15,20 @@ public partial class Enemy : Area2D
         timer.WaitTime = 0.5; // 0.5초 간격
         timer.Timeout += OnMoveTimerTimeout;
         timer.Start();
+        
+        anim = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
     }
     public override void _PhysicsProcess(double delta)
     {
         float speed = GD.RandRange(0, 300);
         Position += moveDirection * speed * (float)delta;
 
+        anim.FlipH = moveDirection.X < 0;
+        
+
         if (Position.X < -50 || Position.Y < -50 || Position.X > 1200 || Position.Y > 700) // 여유를 조금 두고
         {
-            GD.Print("위치 기준으로 제거됨!", Position.X);
+            GD.Print("위치 기준으로 제거됨!", Position.X, Position.Y);
             QueueFree();
             GetNode<Main>("/root/Main").AddScore(-50);
         }
@@ -44,7 +50,5 @@ public partial class Enemy : Area2D
         float randX = GD.RandRange(-500, 500);
         float randY = GD.RandRange(-500, 500);
         moveDirection = new Vector2(randX, randY).Normalized();
-
-        GD.Print("방향 갱신: ", moveDirection);
     }
 }
