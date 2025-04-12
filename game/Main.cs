@@ -60,8 +60,8 @@ public partial class Main : Node2D
 
 		if (instance is Node2D enemy)
 		{
-			float randomX = GD.RandRange(50, 1100);  // 해상도 가로 1200 기준
-			float randomY = GD.RandRange(50, 600); // 해상도 세로 700 기준
+			float randomX = GD.RandRange(150, 1050);  // 해상도 가로 1200 기준
+			float randomY = GD.RandRange(150, 550); // 해상도 세로 700 기준
 
 			enemy.Position = new Vector2(randomX, randomY);
 			

@@ -1,10 +1,44 @@
-[gd_scene load_steps=9 format=3 uid="uid://deyux75tyx8he"]
+[gd_scene load_steps=11 format=3 uid="uid://deyux75tyx8he"]
 
 [ext_resource type="Script" uid="uid://binyvjdwk6p5n" path="res://Main.cs" id="1_cxr5p"]
 [ext_resource type="Script" uid="uid://vj31wswujegd" path="res://Player.cs" id="1_kpjcp"]
 [ext_resource type="Texture2D" uid="uid://dx4n13oekiqgl" path="res://lucidkey.png" id="2_kne1u"]
 [ext_resource type="Script" uid="uid://ovwy6soimkik" path="res://Item.cs" id="3_e80uo"]
 [ext_resource type="PackedScene" uid="uid://cmn6tk5qdnhp4" path="res://Enemy.tscn" id="4_e80uo"]
+[ext_resource type="Texture2D" uid="uid://yo5wa7d7y7wk" path="res://KakaoTalk_20250412_172555241.png" id="4_tdg3f"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dtqjt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_kne1u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_tdg3f")
+}],
+"loop": true,
+"name": &"dash",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_kne1u")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_kne1u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_tdg3f")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tdg3f"]
 size = Vector2(106.5, 103.875)
@@ -22,13 +56,12 @@ script = ExtResource("1_cxr5p")
 [node name="PlayerBody" type="CharacterBody2D" parent="."]
 script = ExtResource("1_kpjcp")
 
-[node name="Sprite2D" type="Sprite2D" parent="PlayerBody"]
-position = Vector2(135.273, 251.5)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PlayerBody"]
 scale = Vector2(0.121876, 0.12963)
-texture = ExtResource("2_kne1u")
+sprite_frames = SubResource("SpriteFrames_dtqjt")
+animation = &"walk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBody"]
-position = Vector2(135.75, 251.063)
 shape = SubResource("RectangleShape2D_tdg3f")
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -52,16 +85,18 @@ position = Vector2(5, 3)
 
 [node name="HpBar" type="ProgressBar" parent="CanvasLayer"]
 offset_left = 843.0
-offset_top = 13.0
+offset_top = 36.0
 offset_right = 1139.0
-offset_bottom = 40.0
+offset_bottom = 63.0
 
 [node name="ScoreLabel" type="Label" parent="CanvasLayer"]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -46.0
-offset_bottom = 23.0
+offset_left = -64.0
+offset_top = 7.0
+offset_right = -18.0
+offset_bottom = 30.0
 grow_horizontal = 0
 text = "점수:0"
 
