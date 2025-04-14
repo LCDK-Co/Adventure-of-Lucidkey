@@ -5,12 +5,16 @@ public partial class Main : Node2D
 {
     // 적 프리팹 로드
     PackedScene enemyScene = GD.Load<PackedScene>("res://Enemy.tscn");
+    Vector2 screenSize;
     
     private int score = 0;
     private int hp = 100;
 
     public override void _Ready()
     {
+        screenSize = GetViewport().GetVisibleRect().Size;
+        GD.Print("현재 해상도: ", screenSize);
+
         UpdateUI();
         
         // Timer에 연결
@@ -30,8 +34,8 @@ public partial class Main : Node2D
 
         if (instance is Node2D enemy)
         {
-            float randomX = GD.RandRange(50, 1100);  // 해상도 가로 1200 기준
-            float randomY = GD.RandRange(50, 600); // 해상도 세로 700 기준
+            float randomX = (float)GD.RandRange(0, (double)screenSize.X);  // 해상도 가로불러온 후 랜덤
+            float randomY = (float)GD.RandRange(0, (double)screenSize.Y);  // 해상도 세로불러온 후 랜덤
 
             enemy.Position = new Vector2(randomX, randomY);
             AddChild(enemy);

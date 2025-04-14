@@ -6,6 +6,9 @@ public partial class Enemy : Area2D
     private Vector2 moveDirection = new Vector2(GD.RandRange(-1, 1), GD.RandRange(-1, 1)).Normalized();
     private AnimatedSprite2D anim;
 
+    PackedScene explosionScene = GD.Load<PackedScene>("res://Explosion.tscn");
+    PackedScene floatingTextScene = GD.Load<PackedScene>("res://FloatingText.tscn");
+
     public override void _Ready()
     {
         Connect("body_entered", new Callable(this, nameof(OnBodyEntered)));
@@ -39,6 +42,18 @@ public partial class Enemy : Area2D
         if (body is Player)
         {
             GD.Print("잡혔다!");
+
+            // 이펙트 생성
+            var explosion = explosionScene.Instantiate<Explosion>();
+            explosion.Position = GlobalPosition;
+            GetParent().AddChild(explosion);
+
+            // 텍스트 생성
+            var floatingText = floatingTextScene.Instantiate() as FloatingText;
+            floatingText.Position = GlobalPosition;
+            floatingText.Setup("+100점!");
+            GetParent().AddChild(floatingText);
+            
             QueueFree(); // 아이템 제거
             GetNode<Main>("/root/Main").AddScore(100);
         }

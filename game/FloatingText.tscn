@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://dc8xdvfq43pio"]
+
+[ext_resource type="Script" uid="uid://y4tmewyvaqlr" path="res://FloatingText.cs" id="1_bmcqi"]
+
+[node name="FloatingText" type="Node2D"]
+script = ExtResource("1_bmcqi")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true

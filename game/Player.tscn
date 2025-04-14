@@ -1,10 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://deyux75tyx8he"]
+[gd_scene load_steps=10 format=3 uid="uid://deyux75tyx8he"]
 
 [ext_resource type="Script" uid="uid://binyvjdwk6p5n" path="res://Main.cs" id="1_cxr5p"]
 [ext_resource type="Script" uid="uid://vj31wswujegd" path="res://Player.cs" id="1_kpjcp"]
 [ext_resource type="Texture2D" uid="uid://dx4n13oekiqgl" path="res://lucidkey.png" id="2_kne1u"]
 [ext_resource type="Script" uid="uid://ovwy6soimkik" path="res://Item.cs" id="3_e80uo"]
-[ext_resource type="PackedScene" uid="uid://cmn6tk5qdnhp4" path="res://Enemy.tscn" id="4_e80uo"]
 [ext_resource type="Texture2D" uid="uid://c0b3cbu5vstdg" path="res://lucidkey_move.png" id="4_tdg3f"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_dtqjt"]
@@ -71,8 +70,6 @@ texture = SubResource("CompressedTexture2D_e80uo")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(999, 521.5)
 shape = SubResource("CircleShape2D_dtqjt")
-
-[node name="EnemyBody" parent="." instance=ExtResource("4_e80uo")]
 
 [node name="EnemyTimer" type="Timer" parent="."]
 
