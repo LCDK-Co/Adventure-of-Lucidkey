@@ -5,15 +5,17 @@ public partial class Main : Node2D
 {
     // 적 프리팹 로드
     PackedScene enemyScene = GD.Load<PackedScene>("res://Enemy.tscn");
-    Vector2 screenSize;
     
     private int score = 0;
-    private int hp = 100;
+    private PauseMenu pauseMenu;
 
     public override void _Ready()
     {
-        screenSize = GetViewport().GetVisibleRect().Size;
-        GD.Print("현재 해상도: ", screenSize);
+        GD.Print("현재 모드: ", Global.GameMode);
+
+        GD.Print("현재 해상도: ", Global.screenSize);
+
+        pauseMenu = GetNode<PauseMenu>("CanvasLayer/PauseMenu");
 
         UpdateUI();
         
@@ -26,6 +28,18 @@ public partial class Main : Node2D
         timer.Start();
     }
 
+    //esc누르면 일시정지메뉴 뜸
+    public override void _Input(InputEvent @event)
+    {
+        if (@event.IsActionPressed("ui_cancel")) // 기본적으로 ESC에 매핑
+        {
+            if (!GetTree().Paused)
+                pauseMenu.ShowPauseMenu();
+            else
+                pauseMenu.HidePauseMenu();
+        }
+    }
+
     // 타이머에 의해 호출될 함수
     private void OnEnemyTimerTimeout()
     {
@@ -34,8 +48,8 @@ public partial class Main : Node2D
 
         if (instance is Node2D enemy)
         {
-            float randomX = (float)GD.RandRange(0, (double)screenSize.X);  // 해상도 가로불러온 후 랜덤
-            float randomY = (float)GD.RandRange(0, (double)screenSize.Y);  // 해상도 세로불러온 후 랜덤
+            float randomX = (float)GD.RandRange(0, (double)Global.screenSize.X);  // 해상도 가로불러온 후 랜덤
+            float randomY = (float)GD.RandRange(0, (double)Global.screenSize.Y);  // 해상도 세로불러온 후 랜덤
 
             enemy.Position = new Vector2(randomX, randomY);
             AddChild(enemy);
@@ -46,12 +60,6 @@ public partial class Main : Node2D
         }
     }
 
-    public void TakeDamage(int amount)
-    {
-        hp = Math.Max(0, hp - amount);
-        UpdateUI();
-    }
-
     public void AddScore(int amount)
     {
         score += amount;
@@ -60,10 +68,8 @@ public partial class Main : Node2D
 
     private void UpdateUI()
     {
-        var hpBar = GetNode<ProgressBar>("CanvasLayer/HpBar");
         var scoreLabel = GetNode<Label>("CanvasLayer/ScoreLabel");
 
-        hpBar.Value = hp;
         scoreLabel.Text = $"점수: {score}";
     }
 }

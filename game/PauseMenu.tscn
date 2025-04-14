@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://dr0ntfdkcinii"]
+
+[ext_resource type="Script" uid="uid://djwtyh5kk0mhk" path="res://PauseMenu.cs" id="1_nov15"]
+
+[node name="PauseMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_nov15")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 530.0
+offset_top = 280.0
+offset_right = 617.0
+offset_bottom = 413.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "일시정지중"
+
+[node name="Button" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "계속하기"
+
+[node name="Button2" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "모드선택"
+
+[node name="Button3" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "나가기"
