@@ -7,7 +7,9 @@ public partial class Main : Node2D
     PackedScene enemyScene = GD.Load<PackedScene>("res://Enemy.tscn");
     
     private int score = 0;
+    private int bomb = 3;
     private PauseMenu pauseMenu;
+    private Timer bombTimer;
 
     public override void _Ready()
     {
@@ -16,6 +18,19 @@ public partial class Main : Node2D
         GD.Print("현재 해상도: ", Global.screenSize);
 
         pauseMenu = GetNode<PauseMenu>("CanvasLayer/PauseMenu");
+
+        if(Global.GameMode == "firemode"){
+            var bombLabel = GetNode<Label>("CanvasLayer/BombLabel");
+            bombLabel.Visible = true;
+            bombTimer = GetNode<Timer>("CanvasLayer/BombTimer");
+            
+            bombTimer.WaitTime = 3; // 3초 간격
+            bombTimer.OneShot = false;
+            bombTimer.Timeout += bombTimerTimeout;
+            bombTimer.Start();
+
+        }
+        
 
         UpdateUI();
         
@@ -60,6 +75,13 @@ public partial class Main : Node2D
         }
     }
 
+    private void bombTimerTimeout()
+    {
+        if(bomb < 3){
+            AddBomb(1);
+        }
+    }
+
     public void AddScore(int amount)
     {
         score += amount;
@@ -69,7 +91,20 @@ public partial class Main : Node2D
     private void UpdateUI()
     {
         var scoreLabel = GetNode<Label>("CanvasLayer/ScoreLabel");
-
         scoreLabel.Text = $"점수: {score}";
+
+        if(Global.GameMode == "firemode"){
+            var bombLabel = GetNode<Label>("CanvasLayer/BombLabel");
+            bombLabel.Text = $"Bomb: {bomb}";
+        }
+    }
+    public void AddBomb(int amount)
+    {
+        bomb += amount;
+        UpdateUI();
+    }
+
+    public int getBomb(){
+        return bomb;
     }
 }

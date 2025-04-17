@@ -11,6 +11,7 @@ public partial class StartScene : Control
         GetNode<Button>("VBoxContainer/Button").Pressed += () => StartGame("easy");
         GetNode<Button>("VBoxContainer/Button2").Pressed += () => StartGame("hard");
         GetNode<Button>("VBoxContainer/Button3").Pressed += () => StartGame("runaway");
+        GetNode<Button>("VBoxContainer/Button4").Pressed += () => StartGame("firemode");
         
         Global.screenSize = GetViewport().GetVisibleRect().Size;
         Global.minBounds = new Vector2(0, 0);

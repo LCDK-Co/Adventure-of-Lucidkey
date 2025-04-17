@@ -30,6 +30,10 @@ text = "사라지는 모드"
 layout_mode = 2
 text = "술래잡기 모드"
 
+[node name="Button4" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "사격모드"
+
 [node name="MainText" type="Label" parent="."]
 layout_mode = 0
 offset_left = 475.0

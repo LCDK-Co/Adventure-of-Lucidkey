@@ -60,7 +60,6 @@ public partial class Enemy : Area2D
             Position += moveDirection * speed * (float)delta;
 
             if (Position.X < 0 || Position.Y < 0 || Position.X > Global.screenSize.X || Position.Y > Global.screenSize.Y){ // 여유를 조금 두고
-            GD.Print("위치 기준으로 제거됨!", Position.X, Position.Y);
             QueueFree();
             GetNode<Main>("/root/Main").AddScore(-50);
             }
