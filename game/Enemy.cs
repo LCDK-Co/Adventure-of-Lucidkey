@@ -10,8 +10,21 @@ public partial class Enemy : Area2D
     PackedScene explosionScene = GD.Load<PackedScene>("res://Explosion.tscn");
     PackedScene floatingTextScene = GD.Load<PackedScene>("res://FloatingText.tscn");
 
+    public int MaxHp = 100;
+    private int currentHp;
+    private TextureProgressBar hpBar;
+
     public override void _Ready()
     {
+        currentHp = MaxHp;
+        hpBar = GetNode<TextureProgressBar>("HpBar");
+        hpBar.MaxValue = MaxHp;
+        hpBar.Value = currentHp;
+
+        // ✅ 사이즈 조절 (너무 작게 안 보이게)
+        hpBar.CustomMinimumSize = new Vector2(40, 6);
+        hpBar.ZIndex = 100; // 위에 보이도록
+
         Connect("body_entered", new Callable(this, nameof(OnBodyEntered)));
         _player = GetNode<Player>("/root/Main/PlayerBody");
 
@@ -121,5 +134,33 @@ public partial class Enemy : Area2D
         float randX = GD.RandRange(-500, 500);
         float randY = GD.RandRange(-500, 500);
         moveDirection = new Vector2(randX, randY).Normalized();
+    }
+
+    public void TakeDamage(int amount)
+    {
+        currentHp -= amount;
+        currentHp = Math.Max(0, currentHp);
+
+        hpBar.Value = currentHp; // ✅ HP 동기화
+
+
+        if (currentHp <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        // 폭발 이펙트, 점수 증가, 텍스트 등
+        var explosion = explosionScene.Instantiate<Explosion>();
+        explosion.Position = GlobalPosition;
+        GetParent().AddChild(explosion);
+
+        var main = GetNodeOrNull<Main>("/root/Main");
+        main?.AddScore(50);
+        _player.GainExp(10);
+
+        QueueFree();
     }
 }

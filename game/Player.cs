@@ -12,6 +12,13 @@ public partial class Player : CharacterBody2D
     private Timer hitTimer;
     Vector2 minBounds;
 	Vector2 maxBounds;
+    public int MaxExp = 100;
+    private int currentExp = 0;
+    private int level = 1;
+    private float shootTimer = 0f; 
+
+
+    private TextureProgressBar expBar;
 
     Vector2 bulletDirection = new Vector2(1f,0);    //총알의 방향
     Vector2 lastmoveCheck = new Vector2(0,0);       //키보드의 마지막 입력 방향
@@ -31,11 +38,17 @@ public partial class Player : CharacterBody2D
         hitTimer.Timeout += () => changeHit(0); // 타이머 끝나면 hit 상태 해제
         anim.Play("idle"); // 기본 애니메이션 실행
 
+        expBar = GetNode<TextureProgressBar>("/root/Main/CanvasLayer/ExpBar");
+
+        expBar.MaxValue = MaxExp;
+        expBar.Value = currentExp;
+
     }
     public override void _PhysicsProcess(double delta)
     {
         Vector2 velocity = Vector2.Zero;
         int Speed = _Speed;
+        shootTimer -= (float)delta;
 
 		if (Input.IsActionPressed("dash")){
 			Speed = _Speed + 450;
@@ -78,9 +91,10 @@ public partial class Player : CharacterBody2D
             }
             bulletDirection = ClampedDirection(bulletDirection);
 
-            if (Input.IsActionPressed("shoot"))
+            if (Input.IsActionPressed("shoot") && shootTimer <= 0)
             {
                 FireBullet(calcDirection());
+                shootTimer = Global.shootCooldown;
             }
             if (Input.IsActionJustPressed("bomb"))
             {
@@ -88,14 +102,7 @@ public partial class Player : CharacterBody2D
                     GD.Print("폭탄이 없다");
                 }
                 else{
-                    for(int sur = 0 ; sur < 3 ; sur ++){
-                    float delay = sur * 0.2f; // 0초, 0.2초, 0.4초 순서
-
-                    GetTree().CreateTimer(delay).Timeout += () =>
-                        {
-                        FireBomb(calcDirection());
-                        };
-                    }
+                    UseBomb();
                     GetNode<Main>("/root/Main").AddBomb(-1);
                 }
             }
@@ -157,8 +164,8 @@ public partial class Player : CharacterBody2D
         GetParent().AddChild(bullet);
     }
 
-    //특수키 발사
-    private void FireBomb(Vector2 direction)
+    //부채꼴 발사
+    private void FireWide(Vector2 direction)
     {
         int checkXY = 0; //x = 0, y = 1
         if(Math.Abs(direction.X)<Math.Abs(direction.Y)){
@@ -225,5 +232,53 @@ public partial class Player : CharacterBody2D
                 bulletDirection.Y -= 1;
             }
         }
+    }
+
+    public void GainExp(int amount)
+    {
+        currentExp += amount;
+
+        if (currentExp >= MaxExp)
+        {
+            currentExp -= MaxExp;
+            LevelUp();
+        }
+
+        expBar.Value = currentExp;
+    }
+
+    private void LevelUp()
+    {
+        level++;
+        MaxExp += 50;
+        expBar.MaxValue = MaxExp;
+        GD.Print($"레벨 업! 현재 레벨: {level}");
+
+        var levelLabel = GetNode<Label>("/root/Main/CanvasLayer/LevelLabel");
+        levelLabel.Text = $"Lv: {level}";
+
+        // 게임 일시정지
+        GetTree().Paused = true;
+
+        // LevelUpMenu 씬 인스턴스화해서 띄우기
+        var menuScene = GD.Load<PackedScene>("res://LevelUpMenu.tscn");
+        var menu = menuScene.Instantiate<LevelUpMenu>();
+
+        GetTree().Root.AddChild(menu);
+    }
+
+    public void UseBomb()
+    {
+        // 현재 씬(Main)에서 모든 Enemy 찾아서 데미지
+        var enemies = GetTree().GetNodesInGroup("Enemies");
+
+        foreach (Enemy enemy in enemies)
+        {
+            enemy.TakeDamage(Global.bombDamage); // 예: 폭탄 데미지 50
+        }
+
+        GD.Print($"폭탄 사용! {enemies.Count}마리 피해!");
+
+        // 필요하면 폭탄 수 차감, UI 업데이트 등 추가
     }
 }

@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=3 uid="uid://c5nkvqyt5skxn"]
+
+[ext_resource type="Script" uid="uid://xy0sk4uw11jr" path="res://LevelUpMenu.cs" id="1_5i1ev"]
+
+[node name="LevelUpMenu" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_5i1ev")
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = 311.0
+offset_top = 162.0
+offset_right = 869.0
+offset_bottom = 502.0
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 0
+offset_right = 557.0
+offset_bottom = 40.0
+text = "레벨업!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 44.0
+offset_right = 556.0
+offset_bottom = 337.0
+
+[node name="Button1" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "button1"
+
+[node name="Button2" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "button2"
+
+[node name="Button3" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "button3"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://deyux75tyx8he"]
+[gd_scene load_steps=12 format=3 uid="uid://deyux75tyx8he"]
 
 [ext_resource type="Script" uid="uid://binyvjdwk6p5n" path="res://Main.cs" id="1_cxr5p"]
 [ext_resource type="Script" uid="uid://vj31wswujegd" path="res://Player.cs" id="1_kpjcp"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://c5gmloohe8sbg" path="res://lucidkey_hit_move.png" id="4_5ncpa"]
 [ext_resource type="Texture2D" uid="uid://c0b3cbu5vstdg" path="res://lucidkey_move.png" id="4_tdg3f"]
 [ext_resource type="PackedScene" uid="uid://dr0ntfdkcinii" path="res://PauseMenu.tscn" id="7_dtqjt"]
+[ext_resource type="Texture2D" uid="uid://cmj6fp7lrwkxx" path="res://buttonLong_brown.png" id="8_wi0c6"]
+[ext_resource type="Texture2D" uid="uid://djxmwm224sits" path="res://barGreen_horizontalMid.png" id="9_hp6x6"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_dtqjt"]
 animations = [{
@@ -93,11 +95,24 @@ text = "점수: 0"
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("7_dtqjt")]
 
 [node name="BombLabel" type="Label" parent="CanvasLayer"]
-visible = false
-offset_left = 1088.0
+offset_left = 1065.0
 offset_top = 23.0
-offset_right = 1151.0
+offset_right = 1152.0
 offset_bottom = 46.0
-text = "bomb: 0"
+text = "bomb: 0 / 0"
 
 [node name="BombTimer" type="Timer" parent="CanvasLayer"]
+
+[node name="ExpBar" type="TextureProgressBar" parent="CanvasLayer"]
+offset_top = 617.0
+offset_right = 190.0
+offset_bottom = 666.0
+scale = Vector2(6.05, 0.6)
+texture_under = ExtResource("8_wi0c6")
+texture_progress = ExtResource("9_hp6x6")
+
+[node name="LevelLabel" type="Label" parent="CanvasLayer"]
+offset_top = 594.0
+offset_right = 40.0
+offset_bottom = 617.0
+text = "Lv. 1"

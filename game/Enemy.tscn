@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cmn6tk5qdnhp4"]
+[gd_scene load_steps=7 format=3 uid="uid://cmn6tk5qdnhp4"]
 
 [ext_resource type="Script" uid="uid://owlt5xbhqnne" path="res://Enemy.cs" id="1_s7bn3"]
 [ext_resource type="Texture2D" uid="uid://cxqqbug2f11i3" path="res://peaceBra.png" id="1_tt7e2"]
+[ext_resource type="Texture2D" uid="uid://cdeoiwsl6v10b" path="res://buttonLong_grey.png" id="3_e6d4v"]
+[ext_resource type="Texture2D" uid="uid://ctcplg4no5foy" path="res://barRed_horizontalMid.png" id="4_qp131"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_s7bn3"]
 animations = [{
@@ -17,7 +19,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s7bn3"]
 size = Vector2(96.75, 120)
 
-[node name="CharacterBody2D" type="Area2D"]
+[node name="CharacterBody2D" type="Area2D" groups=["Enemies"]]
 script = ExtResource("1_s7bn3")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -32,3 +34,15 @@ position = Vector2(576.5, 323.75)
 scale = Vector2(57.55, 32.325)
 
 [node name="RandomMove" type="Timer" parent="."]
+
+[node name="HpBar" type="TextureProgressBar" parent="."]
+z_index = 100
+clip_contents = true
+custom_minimum_size = Vector2(40, 6)
+offset_left = -47.0
+offset_top = 63.0
+offset_right = 143.0
+offset_bottom = 112.0
+scale = Vector2(0.5, 0.3)
+texture_under = ExtResource("3_e6d4v")
+texture_progress = ExtResource("4_qp131")

@@ -24,7 +24,7 @@ public partial class Main : Node2D
             bombLabel.Visible = true;
             bombTimer = GetNode<Timer>("CanvasLayer/BombTimer");
             
-            bombTimer.WaitTime = 3; // 3초 간격
+            bombTimer.WaitTime = Global.bombSpeed; // 3초 간격
             bombTimer.OneShot = false;
             bombTimer.Timeout += bombTimerTimeout;
             bombTimer.Start();
@@ -77,7 +77,7 @@ public partial class Main : Node2D
 
     private void bombTimerTimeout()
     {
-        if(bomb < 3){
+        if(bomb < Global.bombCount){
             AddBomb(1);
         }
     }
@@ -88,14 +88,14 @@ public partial class Main : Node2D
         UpdateUI();
     }
 
-    private void UpdateUI()
+    public void UpdateUI()
     {
         var scoreLabel = GetNode<Label>("CanvasLayer/ScoreLabel");
         scoreLabel.Text = $"점수: {score}";
 
         if(Global.GameMode == "firemode"){
             var bombLabel = GetNode<Label>("CanvasLayer/BombLabel");
-            bombLabel.Text = $"Bomb: {bomb}";
+            bombLabel.Text = $"Bomb: {bomb} / {Global.bombCount}";
         }
     }
     public void AddBomb(int amount)

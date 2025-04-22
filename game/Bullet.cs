@@ -25,15 +25,10 @@ public partial class Bullet : Area2D
 
     private void OnAreaEntered(Area2D area)
     {
-        if (area is Enemy)
+        if (area is Enemy enemy)
         {
-            GD.Print("적격! (area_entered)");
-            area.QueueFree(); // 적 제거
-            QueueFree();      // 총알 제거
-
-            var main = GetNodeOrNull<Main>("/root/Main");
-            if (main != null)
-                main.AddScore(50);
+            enemy.TakeDamage(Global.bulletDamage);
+            QueueFree();          // 총알은 사라짐
         }
     }
 }
