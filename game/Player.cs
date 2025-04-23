@@ -15,7 +15,7 @@ public partial class Player : CharacterBody2D
     public int MaxExp = 100;
     private int currentExp = 0;
     private int level = 1;
-    private float shootTimer = 0f; 
+    private float shootTimer = 0f;
 
 
     private TextureProgressBar expBar;
@@ -46,7 +46,7 @@ public partial class Player : CharacterBody2D
     }
     public override void _PhysicsProcess(double delta)
     {
-        Vector2 velocity = Vector2.Zero;
+        Vector2 input = Vector2.Zero;
         int Speed = _Speed;
         shootTimer -= (float)delta;
 
@@ -60,34 +60,35 @@ public partial class Player : CharacterBody2D
 		}
 
         if (Input.IsActionPressed("ui_right")){
-            velocity.X += 1;
+            input.X += 1;
             bulletDirection.X += 2;
             resetBulletDirection("Y");
         }
         if (Input.IsActionPressed("ui_left")){
-            velocity.X -= 1;
+            input.X -= 1;
             bulletDirection.X -= 2;
             resetBulletDirection("Y");
         }
         if (Input.IsActionPressed("ui_down")){
-            velocity.Y += 1;
+            input.Y += 1;
             bulletDirection.Y += 2;
             resetBulletDirection("X");
         }
         if (Input.IsActionPressed("ui_up")){
-            velocity.Y -= 1;
+            input.Y -= 1;
             bulletDirection.Y -= 2;
             resetBulletDirection("X");
         }
 
-        anim.FlipH = bulletDirection.X < 0;
-        Position += velocity.Normalized() * Speed * (float)delta;
-        Position = Position.Clamp(minBounds, maxBounds);
+        anim.FlipH = input.X < 0;
+        // 💡 Move and Slide 이동 방식
+        Velocity = input.Normalized() * Speed;
+        MoveAndSlide();
         
         if(Global.GameMode == "firemode"){
             //캐릭터가 정지하지 않았을때만 방향값 저장
-            if (velocity != Vector2.Zero){
-                lastmoveCheck = velocity.Normalized();
+            if (input != Vector2.Zero){
+                lastmoveCheck = input.Normalized();
             }
             bulletDirection = ClampedDirection(bulletDirection);
 
@@ -109,9 +110,9 @@ public partial class Player : CharacterBody2D
         }
         
 
-        if (velocity.Length() < 0.1f && hitSignal == 0)
+        if (input.Length() < 0.1f && hitSignal == 0)
             anim.Play("idle");
-        else if(velocity.Length() < 0.1f)
+        else if(input.Length() < 0.1f)
             anim.Play("hit_idle");
         else if(hitSignal == 0)
             anim.Play("walk");

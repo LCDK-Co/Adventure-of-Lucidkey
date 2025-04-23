@@ -81,6 +81,10 @@ one_shot = true
 
 [node name="EnemyTimer" type="Timer" parent="."]
 
+[node name="ObstacleTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="ScoreLabel" type="Label" parent="CanvasLayer"]

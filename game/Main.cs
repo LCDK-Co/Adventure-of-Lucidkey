@@ -5,6 +5,7 @@ public partial class Main : Node2D
 {
     // 적 프리팹 로드
     PackedScene enemyScene = GD.Load<PackedScene>("res://Enemy.tscn");
+    PackedScene ObstacleScene = GD.Load<PackedScene>("res://Obstacle.tscn");
     
     private int score = 0;
     private int bomb = 3;
@@ -41,6 +42,9 @@ public partial class Main : Node2D
         timer.Timeout += OnEnemyTimerTimeout;
 
         timer.Start();
+
+        var obTimer = GetNode<Timer>("ObstacleTimer");
+        obTimer.Timeout += SpawnObstacle;
     }
 
     //esc누르면 일시정지메뉴 뜸
@@ -106,5 +110,17 @@ public partial class Main : Node2D
 
     public int getBomb(){
         return bomb;
+    }
+
+    private void SpawnObstacle()
+    {
+        var obstacle = ObstacleScene.Instantiate<StaticBody2D>();
+
+        float randX = (float)GD.RandRange(100, Global.screenSize.X - 100);
+        float randY = (float)GD.RandRange(100, Global.screenSize.Y - 100);
+
+        obstacle.Position = new Vector2(randX, randY);
+
+        AddChild(obstacle);
     }
 }

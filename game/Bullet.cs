@@ -8,7 +8,8 @@ public partial class Bullet : Area2D
 
     public override void _Ready()
     {
-    Connect("area_entered", new Callable(this, nameof(OnAreaEntered)));
+        Connect("area_entered", new Callable(this, nameof(OnAreaEntered)));
+        Connect("body_entered", new Callable(this, nameof(OnBodyEntered)));
     }
     
     public override void _PhysicsProcess(double delta)
@@ -29,6 +30,15 @@ public partial class Bullet : Area2D
         {
             enemy.TakeDamage(Global.bulletDamage);
             QueueFree();          // 총알은 사라짐
+        }
+    }
+
+    private void OnBodyEntered(Node body)
+    {
+        if (body is Obstacle obstacle)
+        {
+            obstacle.TakeDamage(Global.bulletDamage);
+            QueueFree(); // 총알 제거
         }
     }
 }

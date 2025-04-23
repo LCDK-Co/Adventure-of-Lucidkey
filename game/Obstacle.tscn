@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://sdmrunrrosy7"]
+
+[ext_resource type="Texture2D" uid="uid://du5kujl1jt015" path="res://huddle.png" id="1_nfn2k"]
+[ext_resource type="Script" uid="uid://dnwucgkah7ujf" path="res://Obstacle.cs" id="1_qaun2"]
+[ext_resource type="Texture2D" uid="uid://cdeoiwsl6v10b" path="res://buttonLong_grey.png" id="3_o4784"]
+[ext_resource type="Texture2D" uid="uid://ctcplg4no5foy" path="res://barRed_horizontalMid.png" id="4_bwqqv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qaun2"]
+size = Vector2(76, 64)
+
+[node name="StaticBody2D" type="StaticBody2D"]
+script = ExtResource("1_qaun2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("1_nfn2k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_qaun2")
+
+[node name="HpBar" type="TextureProgressBar" parent="."]
+offset_left = -38.0
+offset_top = 33.0
+offset_right = 152.0
+offset_bottom = 82.0
+scale = Vector2(0.4, 0.2)
+texture_under = ExtResource("3_o4784")
+texture_progress = ExtResource("4_bwqqv")
